@@ -1,6 +1,6 @@
 terraform {
   backend "remote" {
-    hostname = "app.terraform.io"
+    hostname     = "app.terraform.io"
     organization = "seymour-family"
 
     workspaces {
@@ -10,6 +10,10 @@ terraform {
   required_providers {
     digitalocean = {
       source  = "digitalocean/digitalocean"
+      version = "~> 2.0"
+    }
+    cloudflare = {
+      source = "cloudflare/cloudflare"
       version = "~> 2.0"
     }
   }
