@@ -24,7 +24,7 @@ resource "digitalocean_spaces_bucket" "nextcloud" {
 }
 
 resource "digitalocean_project" "family" {
-  name        = "family"
+  name        = "Family"
   description = "Project for Seymour family self-hosting resources"
   purpose     = "Web Application"
   environment = "Production"
