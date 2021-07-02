@@ -24,12 +24,24 @@ resource "digitalocean_spaces_bucket" "nextcloud" {
 }
 
 resource "digitalocean_project" "nextcloud" {
-  name        = "nextcloud"
-  description = "Project for Seymour family nextcloud resources"
+  name        = "family"
+  description = "Project for Seymour family self-hosting resources"
   purpose     = "Web Application"
   environment = "Production"
   resources = [
     # digitalocean_droplet.nextcloud.urn,
     digitalocean_spaces_bucket.nextcloud.urn
   ]
+}
+
+resource "digitalocean_droplet" "paperless" {
+  image              = "debian-10-x64"
+  name               = "nextcloud-${digitalocean_vpc.nextcloud.region}-2"
+  region             = digitalocean_vpc.nextcloud.region
+  size               = "s-1vcpu-1gb"
+  vpc_uuid           = digitalocean_vpc.nextcloud.id
+  monitoring         = true
+  private_networking = true
+  tags               = ["paperless"]
+  ssh_keys           = data.digitalocean_ssh_keys.keys.ssh_keys[*].id
 }
