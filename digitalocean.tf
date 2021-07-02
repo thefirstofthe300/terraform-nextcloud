@@ -23,7 +23,7 @@ resource "digitalocean_spaces_bucket" "nextcloud" {
   region = digitalocean_vpc.nextcloud.region
 }
 
-resource "digitalocean_project" "nextcloud" {
+resource "digitalocean_project" "family" {
   name        = "family"
   description = "Project for Seymour family self-hosting resources"
   purpose     = "Web Application"
@@ -36,7 +36,7 @@ resource "digitalocean_project" "nextcloud" {
 
 resource "digitalocean_droplet" "paperless" {
   image              = "debian-10-x64"
-  name               = "nextcloud-${digitalocean_vpc.nextcloud.region}-2"
+  name               = "paperless-${digitalocean_vpc.nextcloud.region}-1"
   region             = digitalocean_vpc.nextcloud.region
   size               = "s-1vcpu-1gb"
   vpc_uuid           = digitalocean_vpc.nextcloud.id
