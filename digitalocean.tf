@@ -1,9 +1,9 @@
 data "digitalocean_ssh_keys" "keys" {}
 
 resource "digitalocean_vpc" "nextcloud" {
-  name     = "nextcloud-sfo3"
+  name     = "home-sfo3"
   region   = "sfo3"
-  ip_range = "10.0.0.0/24"
+  ip_range = "10.0.0.0/16"
 }
 
 # resource "digitalocean_droplet" "nextcloud" {
