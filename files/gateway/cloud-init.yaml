@@ -1,17 +1,17 @@
 #cloud-config
 
-write_files:
-  - path: /etc/sysctl.d/10-ip-forwarding.conf
-    content: |
-      net.ipv4.ip_forward=1
-yum_repos:
-  salt-latest-repo:
-    name: Salt repo for RHEL/CentOS 8
-    baseurl: https://repo.saltproject.io/py3/redhat/8/x86_64/latest
-    gpgcheck: true
-    gpgkey: https://repo.saltproject.io/py3/redhat/8/x86_64/latest/SALTSTACK-GPG-KEY.pub
+runcmd:
+  - sudo curl -fsSL -o /usr/share/keyrings/salt-archive-keyring.gpg https://repo.saltproject.io/py3/debian/10/amd64/latest/salt-archive-keyring.gpg
+apt:
+  sources:
+    salt.list:
+      source: deb [signed-by=/usr/share/keyrings/salt-archive-keyring.gpg] https://repo.saltproject.io/py3/debian/10/amd64/latest buster main
 repo_update: true
 repo_upgrade: all
 # salt_minion:
 #   conf:
 #     master: 192.168.1.200
+write_files:
+  - path: /etc/sysctl.d/10-ip-forwarding.conf
+    content: |
+      net.ipv4.ip_forward=1

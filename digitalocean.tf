@@ -48,7 +48,7 @@ resource "digitalocean_droplet" "paperless" {
 }
 
 resource "digitalocean_droplet" "gateway_vpn" {
-  image              = "centos-8-x64"
+  image              = "debian-10-x64"
   name               = "gateway-${digitalocean_vpc.nextcloud.region}-1"
   region             = digitalocean_vpc.nextcloud.region
   size               = "s-1vcpu-1gb"
