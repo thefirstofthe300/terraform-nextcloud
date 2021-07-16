@@ -5,16 +5,12 @@ write_files:
     content: |
       net.ipv4.ip_forward=1
 yum_repos:
-  # The name of the repository
   salt-latest-repo:
     name: Salt repo for RHEL/CentOS 8
     baseurl: https://repo.saltproject.io/py3/redhat/8/x86_64/latest
-    skip_if_unavailable: true
-    enabled: true
-    enabled_metadata: true
-    failovermethod: priority
     gpgcheck: true
     gpgkey: https://repo.saltproject.io/py3/redhat/8/x86_64/latest/SALTSTACK-GPG-KEY.pub
-salt_minion:
-  conf:
-    master: 192.168.1.200
+    skip_if_unavailable: true
+# salt_minion:
+#   conf:
+#     master: 192.168.1.200
