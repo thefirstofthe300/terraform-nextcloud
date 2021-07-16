@@ -57,5 +57,5 @@ resource "digitalocean_droplet" "gateway_vpn" {
   private_networking = true
   tags               = ["gateway"]
   ssh_keys           = data.digitalocean_ssh_keys.keys.ssh_keys[*].id
-  user_data          = filebase64("${path.module}/files/gateway/cloud-init.yaml")
+  user_data          = file("${path.module}/files/gateway/cloud-init.yaml")
 }
