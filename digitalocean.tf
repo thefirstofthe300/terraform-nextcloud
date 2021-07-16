@@ -30,6 +30,7 @@ resource "digitalocean_project" "family" {
   environment = "Production"
   resources = [
     digitalocean_droplet.paperless.urn,
+    digitalocean_droplet.gateway_vpn.urn,
     digitalocean_spaces_bucket.nextcloud.urn
   ]
 }
@@ -44,4 +45,17 @@ resource "digitalocean_droplet" "paperless" {
   private_networking = true
   tags               = ["paperless"]
   ssh_keys           = data.digitalocean_ssh_keys.keys.ssh_keys[*].id
+}
+
+resource "digitalocean_droplet" "gateway_vpn" {
+  image              = "centos-stream-8-x64"
+  name               = "gateway-${digitalocean_vpc.nextcloud.region}-1"
+  region             = digitalocean_vpc.nextcloud.region
+  size               = "s-1vcpu-1gb"
+  vpc_uuid           = digitalocean_vpc.nextcloud.id
+  monitoring         = true
+  private_networking = true
+  tags               = ["gateway"]
+  ssh_keys           = data.digitalocean_ssh_keys.keys.ssh_keys[*].id
+  user_data          = filebase64("${path.module}/files/gateway/cloud-init.yaml")
 }

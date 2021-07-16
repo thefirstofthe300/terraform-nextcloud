@@ -1,0 +1,6 @@
+#cloud-config
+
+write_files:
+  - path: /etc/sysctl.d/10-ip-forwarding.conf
+    content: |
+      net.ipv4.ip_forward=1
