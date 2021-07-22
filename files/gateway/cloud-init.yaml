@@ -1,3 +1,4 @@
+## template: jinja
 #cloud-config
 
 runcmd:
@@ -9,6 +10,7 @@ apt:
 repo_update: true
 repo_upgrade: all
 packages:
+  - strongswan
 salt_minion:
   conf:
     master: 192.168.1.200
@@ -16,3 +18,34 @@ write_files:
   - path: /etc/sysctl.d/10-ip-forwarding.conf
     content: |
       net.ipv4.ip_forward=1
+  - path: /etc/ipsec.conf
+    content: |
+      # ipsec.conf - strongSwan IPsec configuration file
+
+      config setup
+      # Add connections here.
+      conn family-to-newberg
+          authby=secret
+          auto=start
+          type=tunnel
+
+          # IP address of the DigitalOcean droplet
+          left={{ ds.network_json.networks[0].ip_address }}
+          leftsubnet=10.0.0.0/16
+          right=
+
+          # IP address of the Newberg apartment
+          rightsubnet={{ connection['config']['rightsubnet'] }}
+
+          ike={{ connection['config']['ike'] }}
+          keyexchange={{ connection['config']['keyexchange'] }}
+          ikelifetime={{ connection['config']['ikelifetime'] }}
+          esp={{ connection['config']['esp'] }}
+  - path: /etc/ipsec.secrets
+    content: |
+      # This file holds shared secrets or RSA private keys for authentication.
+
+      # RSA private key for this host, authenticating it to any other host
+      # which knows the public part.
+
+      {{ connection['config']['left'] }} {{ connection['config']['right'] }} : PSK {{ connection['secret'] }}
