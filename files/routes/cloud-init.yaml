@@ -1,13 +1,8 @@
 ## template: jinja
 #cloud-config
 
-network:
-  version: 2
-  ethernets:
-    eth0:
-      routes:
-        - to: 192.168.1.0/24
-          via: 10.0.0.2
+runcmd:
+  - ip route add 192.168.1.0/24 via 10.0.0.2
 salt_minion:
   conf:
     master: 192.168.1.200
