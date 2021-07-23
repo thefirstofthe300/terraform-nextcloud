@@ -61,7 +61,8 @@ resource "digitalocean_droplet" "gateway_vpn" {
     # droplet_ip = digitalocean_droplet.gateway_vpn.ipv4_address,
     droplet_subnet = digitalocean_vpc.nextcloud.ip_range,
     home_ip = var.home_ip,
-    home_subnet = var.home_subnet
+    home_subnet = var.home_subnet,
+    vpn_secret = var.vpn_secret
   })
   depends_on = [digitalocean_vpc.nextcloud]
 }

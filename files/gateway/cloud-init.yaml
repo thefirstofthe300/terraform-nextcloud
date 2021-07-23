@@ -47,3 +47,5 @@ write_files:
 
       # RSA private key for this host, authenticating it to any other host
       # which knows the public part.
+
+      {{ ds.network_json.networks[0].ip_address }} ${home_ip} : PSK ${vpn_secret}
