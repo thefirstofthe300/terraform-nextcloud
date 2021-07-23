@@ -59,8 +59,9 @@ resource "digitalocean_droplet" "gateway_vpn" {
   ssh_keys           = data.digitalocean_ssh_keys.keys.ssh_keys[*].id
   user_data          = templatefile("${path.module}/files/gateway/cloud-init.yaml", {
     # droplet_ip = digitalocean_droplet.gateway_vpn.ipv4_address,
-    # droplet_subnet = digitalocean_vpc.nextcloud.ip_range,
+    droplet_subnet = digitalocean_vpc.nextcloud.ip_range,
     # home_ip = var.home_ip,
     # home_subnet = var.home_subnet
   })
+  depends_on = [digitalocean_vpc.nextcloud]
 }
