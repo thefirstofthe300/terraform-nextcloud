@@ -30,8 +30,8 @@ write_files:
           type=tunnel
 
           # IP address of the DigitalOcean droplet
-          left=$${ droplet_ip }
-          leftsubnet=$${ digitalocean_subnet }
+          left={{ ds.network_json.networks[0].ip_address }}
+          leftsubnet=${ digitalocean_subnet }
 
           # IP address of the Newberg apartment
           right=$${ home_ip }
