@@ -47,6 +47,11 @@ resource "digitalocean_droplet" "paperless" {
   ssh_keys           = data.digitalocean_ssh_keys.keys.ssh_keys[*].id
 }
 
+resource "digitalocean_floating_ip" "gateway_vpn" {
+  droplet_id = digitalocean_droplet.gateway_vpn.id
+  region     = digitalocean_droplet.gateway_vpn.region
+}
+
 resource "digitalocean_droplet" "gateway_vpn" {
   image              = "debian-10-x64"
   name               = "gateway-${digitalocean_vpc.nextcloud.region}-1"
@@ -58,7 +63,6 @@ resource "digitalocean_droplet" "gateway_vpn" {
   tags               = ["gateway"]
   ssh_keys           = data.digitalocean_ssh_keys.keys.ssh_keys[*].id
   user_data          = templatefile("${path.module}/files/gateway/cloud-init.yaml", {
-    # droplet_ip = digitalocean_droplet.gateway_vpn.ipv4_address,
     droplet_subnet = digitalocean_vpc.nextcloud.ip_range,
     home_ip = var.home_ip,
     home_subnet = var.home_subnet,
