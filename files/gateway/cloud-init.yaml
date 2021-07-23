@@ -47,5 +47,3 @@ write_files:
 
       # RSA private key for this host, authenticating it to any other host
       # which knows the public part.
-
-      {{ connection['config']['left'] }} {{ connection['config']['right'] }} : PSK {{ connection['secret'] }}
