@@ -35,17 +35,17 @@ resource "digitalocean_project" "family" {
   ]
 }
 
-# resource "digitalocean_droplet" "paperless" {
-#   image              = "debian-10-x64"
-#   name               = "paperless-${digitalocean_vpc.nextcloud.region}-1"
-#   region             = digitalocean_vpc.nextcloud.region
-#   size               = "s-1vcpu-1gb"
-#   vpc_uuid           = digitalocean_vpc.nextcloud.id
-#   monitoring         = true
-#   private_networking = true
-#   tags               = ["paperless"]
-#   ssh_keys           = data.digitalocean_ssh_keys.keys.ssh_keys[*].id
-# }
+resource "digitalocean_droplet" "paperless" {
+  image              = "debian-10-x64"
+  name               = "paperless-${digitalocean_vpc.nextcloud.region}-1"
+  region             = digitalocean_vpc.nextcloud.region
+  size               = "s-1vcpu-1gb"
+  vpc_uuid           = digitalocean_vpc.nextcloud.id
+  monitoring         = true
+  private_networking = true
+  tags               = ["paperless"]
+  ssh_keys           = data.digitalocean_ssh_keys.keys.ssh_keys[*].id
+}
 
 resource "digitalocean_droplet" "gateway_vpn" {
   image              = "debian-10-x64"
