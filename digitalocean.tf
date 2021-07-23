@@ -29,7 +29,7 @@ resource "digitalocean_project" "family" {
   purpose     = "Web Application"
   environment = "Production"
   resources = [
-    digitalocean_droplet.paperless.urn,
+    # digitalocean_droplet.paperless.urn,
     digitalocean_droplet.gateway_vpn.urn,
     digitalocean_spaces_bucket.nextcloud.urn
   ]
@@ -48,8 +48,7 @@ resource "digitalocean_project" "family" {
 # }
 
 resource "digitalocean_floating_ip" "gateway_vpn" {
-  droplet_id = digitalocean_droplet.gateway_vpn.id
-  region     = digitalocean_droplet.gateway_vpn.region
+  region     = digitalocean_vpc.nextcloud.region
 }
 
 resource "digitalocean_droplet" "gateway_vpn" {
@@ -66,7 +65,12 @@ resource "digitalocean_droplet" "gateway_vpn" {
     droplet_subnet = digitalocean_vpc.nextcloud.ip_range,
     home_ip = var.home_ip,
     home_subnet = var.home_subnet,
+    droplet_ip = digitalocean_floating_ip.gateway_vpn.ip_address
     vpn_secret = var.vpn_secret
   })
-  depends_on = [digitalocean_vpc.nextcloud]
+}
+
+resource "digitalocean_floating_ip_assignment" "gateway_vpn" {
+  ip_address = digitalocean_floating_ip.gateway_vpn.ip_address
+  droplet_id = digitalocean_droplet.gateway_vpn.id
 }
