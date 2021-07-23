@@ -34,8 +34,8 @@ write_files:
           leftsubnet=${ droplet_subnet }
 
           # IP address of the Newberg apartment
-          right=$${ home_ip }
-          rightsubnet=$${ home_subnet }
+          right=${ home_ip }
+          rightsubnet=${ home_subnet }
 
           ike=aes256-sha1-modp2048
           keyexchange=ikev2
