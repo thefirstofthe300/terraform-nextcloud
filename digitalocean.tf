@@ -47,10 +47,6 @@ resource "digitalocean_project" "family" {
 #   ssh_keys           = data.digitalocean_ssh_keys.keys.ssh_keys[*].id
 # }
 
-resource "digitalocean_floating_ip" "gateway_vpn" {
-  region     = digitalocean_vpc.nextcloud.region
-}
-
 resource "digitalocean_droplet" "gateway_vpn" {
   image              = "debian-10-x64"
   name               = "gateway-${digitalocean_vpc.nextcloud.region}-1"
@@ -65,12 +61,6 @@ resource "digitalocean_droplet" "gateway_vpn" {
     droplet_subnet = digitalocean_vpc.nextcloud.ip_range,
     home_ip = var.home_ip,
     home_subnet = var.home_subnet,
-    droplet_ip = digitalocean_floating_ip.gateway_vpn.ip_address
     vpn_secret = var.vpn_secret
   })
-}
-
-resource "digitalocean_floating_ip_assignment" "gateway_vpn" {
-  ip_address = digitalocean_floating_ip.gateway_vpn.ip_address
-  droplet_id = digitalocean_droplet.gateway_vpn.id
 }
