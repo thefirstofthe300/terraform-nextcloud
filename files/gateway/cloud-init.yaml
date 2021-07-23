@@ -30,17 +30,17 @@ write_files:
           type=tunnel
 
           # IP address of the DigitalOcean droplet
-          left={{ ds.network_json.networks[0].ip_address }}
-          leftsubnet=10.0.0.0/16
-          right=
+          left=$${ droplet_ip }
+          leftsubnet=$${ digitalocean_subnet }
 
           # IP address of the Newberg apartment
-          rightsubnet={{ connection['config']['rightsubnet'] }}
+          right=$${ home_ip }
+          rightsubnet=$${ home_subnet }
 
-          ike={{ connection['config']['ike'] }}
-          keyexchange={{ connection['config']['keyexchange'] }}
-          ikelifetime={{ connection['config']['ikelifetime'] }}
-          esp={{ connection['config']['esp'] }}
+          ike=aes256-sha1-modp2048
+          keyexchange=ikev2
+          ikelifetime=28800s
+          esp=aes256-sha1-modp2048
   - path: /etc/ipsec.secrets
     content: |
       # This file holds shared secrets or RSA private keys for authentication.
