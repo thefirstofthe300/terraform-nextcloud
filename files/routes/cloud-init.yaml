@@ -2,7 +2,7 @@
 #cloud-config
 
 runcmd:
-  - ip route add 192.168.1.0/24 via 10.0.0.2
+  - ip route add 192.168.1.0/24 via ${gateway_ip}
 salt_minion:
   conf:
     master: 192.168.1.200

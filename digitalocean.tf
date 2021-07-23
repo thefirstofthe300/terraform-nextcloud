@@ -45,7 +45,9 @@ resource "digitalocean_droplet" "paperless" {
   private_networking = true
   tags               = ["paperless"]
   ssh_keys           = data.digitalocean_ssh_keys.keys.ssh_keys[*].id
-  user_data          = file("${path.module}/files/routes/cloud-init.yaml")
+  user_data          = templatefile("${path.module}/files/routes/cloud-init.yaml", {
+    gateway_ip = digitalocean_droplet.gateway_vpn.ipv4_address_private
+  })
 }
 
 resource "digitalocean_droplet" "gateway_vpn" {
