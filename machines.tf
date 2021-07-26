@@ -1,5 +1,5 @@
 resource "digitalocean_droplet" "gateway_vpn" {
-  image              = "debian-10-x64"
+  image              = var.droplet_image
   name               = "gateway-${var.region}-1"
   region             = var.region
   size               = "s-1vcpu-1gb"
@@ -17,7 +17,7 @@ resource "digitalocean_droplet" "gateway_vpn" {
 }
 
 resource "digitalocean_droplet" "paperless" {
-  image              = "debian-10-x64"
+  image              = var.droplet_image
   name               = "paperless-${var.region}-1"
   region             = var.region
   size               = "s-1vcpu-1gb"
@@ -31,14 +31,14 @@ resource "digitalocean_droplet" "paperless" {
   })
 }
 
-# resource "digitalocean_droplet" "nextcloud" {
-#   image              = "debian-10-x64"
-#   name               = "nextcloud-${var.region}-1"
-#   region             = var.region
-#   size               = "s-2vcpu-4gb"
-#   vpc_uuid           = digitalocean_vpc.home.id
-#   monitoring         = true
-#   private_networking = true
-#   tags               = ["nextcloud"]
-#   ssh_keys           = data.digitalocean_ssh_keys.keys.ssh_keys[*].id
-# }
+resource "digitalocean_droplet" "nextcloud" {
+  image              = var.droplet_image
+  name               = "nextcloud-${var.region}-1"
+  region             = var.region
+  size               = "s-2vcpu-4gb"
+  vpc_uuid           = digitalocean_vpc.home.id
+  monitoring         = true
+  private_networking = true
+  tags               = ["nextcloud"]
+  ssh_keys           = data.digitalocean_ssh_keys.keys.ssh_keys[*].id
+}
