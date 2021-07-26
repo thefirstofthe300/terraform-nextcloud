@@ -35,13 +35,13 @@ resource "digitalocean_droplet" "nextcloud" {
   image              = var.droplet_image
   name               = "nextcloud-${var.region}-1"
   region             = var.region
-  size               = "s-2vcpu-4gb"
+  size               = "s-1vcpu-1gb"
   vpc_uuid           = digitalocean_vpc.home.id
   monitoring         = true
   private_networking = true
   tags               = ["nextcloud"]
   ssh_keys           = data.digitalocean_ssh_keys.keys.ssh_keys[*].id
-  user_data = templatefile("${path.module}/files/routes/cloud-init.yaml", {
+  user_data = templatefile("${path.module}/files/route.test.yaml", {
     gateway_ip = digitalocean_droplet.gateway_vpn.ipv4_address_private
   })
 }
