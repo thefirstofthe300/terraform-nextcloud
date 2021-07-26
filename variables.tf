@@ -1,3 +1,8 @@
+variable "region" {
+  type    = string
+  default = "sfo3"
+}
+
 variable "home_ip" {
   type = string
 }
