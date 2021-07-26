@@ -11,9 +11,9 @@ resource "digitalocean_project" "family" {
   purpose     = "Web Application"
   environment = "Production"
   resources = [
-    digitalocean_droplet.paperless.urn,
+    # digitalocean_droplet.paperless.urn,
     digitalocean_droplet.gateway_vpn.urn,
-    digitalocean_droplet.nextcloud.urn,
+    # digitalocean_droplet.nextcloud.urn,
     digitalocean_spaces_bucket.nextcloud.urn
   ]
 }
