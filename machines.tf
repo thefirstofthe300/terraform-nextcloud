@@ -20,7 +20,7 @@ resource "digitalocean_droplet" "paperless" {
   image              = var.droplet_image
   name               = "paperless-${var.region}-1"
   region             = var.region
-  size               = "s-1vcpu-1gb"
+  size               = "s-1vcpu-2gb"
   vpc_uuid           = digitalocean_vpc.home.id
   monitoring         = true
   private_networking = true
