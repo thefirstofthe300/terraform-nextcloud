@@ -1,10 +1,5 @@
 data "digitalocean_ssh_keys" "keys" {}
 
-resource "digitalocean_spaces_bucket" "nextcloud" {
-  name   = "cloud-seymour-family"
-  region = var.region
-}
-
 resource "digitalocean_project" "family" {
   name        = "Family"
   description = "Project for Seymour family self-hosting resources"
