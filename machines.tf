@@ -32,7 +32,7 @@ resource "digitalocean_droplet" "paperless" {
 }
 
 resource "digitalocean_droplet" "paperless-2" {
-  image              = "rockylinux-8-x64"
+  image              = "centos-stream-8-x64"
   name               = "paperless-${var.region}-2"
   region             = var.region
   size               = "s-1vcpu-2gb"
