@@ -18,7 +18,7 @@ resource "digitalocean_droplet" "gateway_vpn" {
 
 resource "digitalocean_droplet" "paperless" {
   image              = "centos-stream-8-x64"
-  name               = "paperless-${var.region}-2"
+  name               = "paperless-${var.region}-1"
   region             = var.region
   size               = "s-1vcpu-2gb"
   vpc_uuid           = digitalocean_vpc.home.id
