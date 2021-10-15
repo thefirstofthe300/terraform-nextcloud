@@ -17,21 +17,6 @@ resource "digitalocean_droplet" "gateway_vpn" {
 }
 
 resource "digitalocean_droplet" "paperless" {
-  image              = var.droplet_image
-  name               = "paperless-${var.region}-1"
-  region             = var.region
-  size               = "s-1vcpu-2gb"
-  vpc_uuid           = digitalocean_vpc.home.id
-  monitoring         = true
-  private_networking = true
-  tags               = ["paperless"]
-  ssh_keys           = data.digitalocean_ssh_keys.keys.ssh_keys[*].id
-  user_data = templatefile("${path.module}/files/routes/cloud-init.yaml", {
-    gateway_ip = digitalocean_droplet.gateway_vpn.ipv4_address_private
-  })
-}
-
-resource "digitalocean_droplet" "paperless-2" {
   image              = "centos-stream-8-x64"
   name               = "paperless-${var.region}-2"
   region             = var.region
