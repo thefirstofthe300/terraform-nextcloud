@@ -5,9 +5,6 @@ yum_repos:
   salt-repo:
     name: Salt repo for RHEL/CentOS 8 PY3
     baseurl: https://repo.saltproject.io/py3/redhat/8/x86_64/3003
-    failovermethod: priority
-    enabled: true
-    enabled_metadata: 1
     gpgcheck: 1
     gpgkey: https://repo.saltproject.io/py3/redhat/8/x86_64/latest/SALTSTACK-GPG-KEY.pub
 runcmd:
