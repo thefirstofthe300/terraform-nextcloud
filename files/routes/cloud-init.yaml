@@ -10,10 +10,8 @@ yum_repos:
     enabled_metadata: 1
     gpgcheck: 1
     gpgkey: https://repo.saltproject.io/py3/redhat/8/x86_64/latest/SALTSTACK-GPG-KEY.pub
-
 runcmd:
   - ip route add 192.168.1.0/24 via ${gateway_ip}
-
 salt_minion:
   conf:
     master: 192.168.1.200
