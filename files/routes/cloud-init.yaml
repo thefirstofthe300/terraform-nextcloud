@@ -2,7 +2,7 @@
 #cloud-config
 
 yum_repos:
-  salt-repo:
+  salt_repo:
     name: Salt repo for RHEL/CentOS 8 PY3
     baseurl: https://repo.saltproject.io/py3/redhat/8/x86_64/3003
     gpgcheck: 1
