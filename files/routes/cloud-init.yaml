@@ -1,13 +1,16 @@
+## template: jinja
 #cloud-config
 
-yum_repos:
-  salt_repo:
-    name: Salt repo for RHEL/CentOS 8 PY3
-    baseurl: https://repo.saltproject.io/py3/redhat/8/x86_64/3003
-    gpgcheck: 1
-    gpgkey: https://repo.saltproject.io/py3/redhat/8/x86_64/latest/SALTSTACK-GPG-KEY.pub
+# yum_repos:
+#   salt_repo:
+#     name: Salt repo for RHEL/CentOS 8 PY3
+#     baseurl: https://repo.saltproject.io/py3/redhat/8/x86_64/3003
+#     gpgcheck: 1
+#     gpgkey: https://repo.saltproject.io/py3/redhat/8/x86_64/latest/SALTSTACK-GPG-KEY.pub
 runcmd:
   - ip route add 192.168.1.0/24 via ${gateway_ip}
+  - sudo rpm --import https://repo.saltproject.io/py3/redhat/8/x86_64/latest/SALTSTACK-GPG-KEY.pub
+  - curl -fsSL https://repo.saltproject.io/py3/redhat/8/x86_64/3004.repo | sudo tee /etc/yum.repos.d/salt.repo
 salt_minion:
   conf:
     master: 192.168.1.200
