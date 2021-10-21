@@ -11,6 +11,11 @@ runcmd:
   - ip route add 192.168.1.0/24 via ${gateway_ip}
   - sudo rpm --import https://repo.saltproject.io/py3/redhat/8/x86_64/latest/SALTSTACK-GPG-KEY.pub
   - curl -fsSL https://repo.saltproject.io/py3/redhat/8/x86_64/3004.repo | sudo tee /etc/yum.repos.d/salt.repo
-salt_minion:
-  conf:
-    master: 192.168.1.200
+manage_resolv_conf: true
+resolv_conf:
+  nameservers:
+    - 173.245.58.51
+    - 198.41.222.173
+  searchdomains:
+    - internal.seymour.family
+  domain: internal.seymour.family
