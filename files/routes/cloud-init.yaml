@@ -14,8 +14,7 @@ runcmd:
 manage_resolv_conf: true
 resolv_conf:
   nameservers:
-    - 173.245.58.51
-    - 198.41.222.173
+    - 67.207.67.2
   searchdomains:
     - internal.seymour.family
   domain: internal.seymour.family
